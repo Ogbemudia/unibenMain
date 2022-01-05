@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<script src="js/sync.js"></script>
+<script src="js/adminacc.js"></script>-->
+
+<head>
+    <script src="js/validation.js"></script>
+
+
+    <!-- <script>
+        //  let acc = getCookie("users")
+        let acc = sessionStorage.getItem("users");
+        // var x = "user";
+        if (acc !== "user") {
+            window.location.href = "../index.html";
+        }
+    </script> -->
+    <script>
+        window.onload = function() {
+
+            $.fn.read_users();
+
+        };
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/unibenlogo.png" type="image" sizes="16x16">
+    <title>UniBen || ICT-Web</title>
+
+    <!--<link rel="preconnect" href="https://fonts.gstatic.com">-->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link href="css/templatemo-style.css" rel="stylesheet">
+    <link rel="stylesheet" href="tablemanager/tss.css">
+
+    <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
+
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $(function() {
+                $.get("../validation/read_singlelogin.php", function(messages) {
+
+                    if (messages.category !== 'user') {
+                        $.fn.logout();
+                    }
+                })
+
+            }, "json");
+        });
+    </script>
+</head>
+<style>
+    #subm li a {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    #result {
+        position: absolute;
+        width: 30%;
+        /*max-width: 870px;
+        max-height: 400px;*/
+        cursor: pointer;
+        overflow-y: auto;
+        box-sizing: border-box;
+        z-index: 1001;
+    }
+    
+    .link-class:hover {
+        background-color: #f1f1f1;
+    }
+    
+    .homeT {
+        overflow-y: scroll;
+        /*height: 1000px;*/
+        scrollbar-width: thin;
+        scrollbar-color: #a4abb1;
+    }
+    
+    .homeT::-webkit-scrollbar {
+        width: 12px;
+    }
+    
+    .homeT::-webkit-scrollbar-thumb {
+        background-color: #a4abb1;
+        border-radius: 8px;
+    }
+    
+    .Pinfo {
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .link-class:hover {
+        background-color: #f1f1f1;
+    }
+    
+    .containertable {
+        padding: 4%;
+    }
+    /*modal*/
+    /* .popup-overlay {
+        visibility: hidden;
+        position: absolute;
+        background: #ffffff;
+        border: 3px solid #666666;
+        width: 30%;
+        height: 30%;
+        left: 25%;
+        border-radius: 10px;
+        top: 25%;
+    }
+    .popup-content {
+        visibility: hiden;
+    }
+    */
+    
+    .popup-overlay.active {
+        visibility: visible;
+        text-align: center;
+        /*active*/
+        position: fixed;
+        background: #ffffff;
+        border: 3px solid #666666;
+        width: 20%;
+        /* height: 30%;*/
+        left: 25%;
+        border-radius: 10px;
+        top: 40%;
+        left: 30%;
+        box-shadow: 4px 20px 20px #666666;
+        z-index: 4;
+    }
+    
+    .popup-overlay1.active {
+        visibility: visible;
+        text-align: center;
+        /*active*/
+        position: fixed;
+        background: #ffffff;
+        border: 3px solid #666666;
+        width: 20%;
+        /* height: 30%;*/
+        left: 25%;
+        border-radius: 10px;
+        top: 20%;
+        box-shadow: 4px 20px 20px #666666;
+        z-index: 4;
+    }
+    
+    .popup-content.active {
+        visibility: visible;
+    }
+    /* .button1 {
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 30px;
+        margin: .20rem;
+        font-size: 1rem;
+        color: #666666;
+        background: #ffffff;
+        border: 1px solid #666666;
+    }
+  
+    
+    .button1:hover {
+        border: 1px sold #666666;
+        background: #666666;
+        color: #ffffff;
+    }  */
+    
+    .btntb1 {
+        margin: 2px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a href="index.html">
+                                <h2>UniBen</h2>
+                                <h6>ICT-Web</h6>
+                            </a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-menu">
+
+                    <ul class="menu">
+                        <!--<li class="sidebar-title">Menu</li>-->
+                        <li class="sidebar-item active ">
+                            <span class="myPic"></span>
+                            <h4><span class="myName"></h4></strong>
+                            <hr>
+                            <!--<span>View your profile</span>-->
+                                </a>
+                        </li>
+
+
+                        <li class="sidebar-item active ">
+                            <a href="javascript:void(0)" class='sidebar-link' style="background: #9C0C84;">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="javascript:void(0)" class='sidebar-link'>
+                                <i class="bi bi-person-lines-fill"></i>
+                                <span>My Account</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" class="changepass">Change your password</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" class="logout">Logout</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <!-- <a href="javascript:void(0)" class='update_form'>
+
+                                        <span class="">Update your profile</span>
+                                    </a> -->
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="javascript:void(0)" class='sidebar-link'>
+                                <i class="bi bi-menu-button-wide-fill"></i>
+                                <span>Menu</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="menu1">Menu</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="menutype">Menu Type</a>
+                                </li>
+                                <!--<li class="submenu-item ">
+                                    <a href="extra-component-toastify.html">Toastify</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="extra-component-rating.html">Rating</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="extra-component-divider.html">Divider</a>
+                                </li>-->
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="javascript:void(0)" class='sidebar-link'>
+                                <i class="bi bi-calendar2-event"></i>
+                                <span>Events</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="events">Events</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="news">News</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="calendars">Calendars</a>
+                                </li>
+                                <!--<li class="submenu-item ">
+                                    <a href="extra-component-rating.html">Rating</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="extra-component-divider.html">Divider</a>
+                                </li>-->
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="javascript:void(0)" class='sidebar-link'>
+                                <i class="bi bi-images"></i>
+                                <span>Gallery</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="gallery">Gallery</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="sliders">Sliders</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="slidertemplate">Slider Template</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="videos">Videos</a>
+                                </li>
+                                <!--<li class="submenu-item ">
+                                    <a href="extra-component-rating.html">Rating</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="extra-component-divider.html">Divider</a>
+                                </li>-->
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="javascript:void(0)" class='sidebar-link'>
+                                <i class="bi bi-book"></i>
+                                <span>Pages</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="pages">Pages</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="pagetemplate">Page Template</a>
+                                </li>
+                                <!--<li class="submenu-item ">
+                                    <a href="javascript:void(0)" class="videos">Videos</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="extra-component-rating.html">Rating</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="extra-component-divider.html">Divider</a>
+                                </li>-->
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="javascript:void(0)" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Sections</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="sections">Sections</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="javascript:void(0)" id="sectiontemplate4">Sections Template</a>
+                                </li>
+                                <!--<li class="submenu-item ">
+                                    <a href="javascript:void(0)" class="videos">Videos</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="extra-component-rating.html">Rating</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="extra-component-divider.html">Divider</a>
+                                </li>-->
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+            <div class="col-lg-12 row page-heading">
+                <div class="col-lg-4" class=itemon>
+                    <h3 id="nameId">Dashboard</h3>
+                </div>
+                <div style="display:flex;flex-direction: row;" class="col-lg-5">
+
+                    <input type="text" class="form-control col-lg-3" id="search" placeholder="Search profile">
+                    <!-- <input type="hidden" name="crud_req" class="form-control" id="crud_req" value="search">-->
+
+                    <button class="btn btn-secondary" type="button" id="submit">
+                          <i class="fa fa-search"></i>
+                        </button>
+
+
+                </div>
+            </div>
+            <div class="page-content">
+                <section class="row">
+                    <div class="col-12 col-lg-12">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <!--<h4>Profile Visit</h4>-->
+                                        <style type="text/css">
+                                            body {
+                                                font: 14px sans-serif;
+                                            }
+                                            
+                                            .wrapper1 {
+                                                padding: 8px;
+                                                display: block;
+                                                margin-left: auto;
+                                                margin-right: auto;
+                                                text-align: left;
+                                            }
+                                            
+                                            .wrapper {
+                                                width: 90%;
+                                                padding: 20px;
+                                                display: block;
+                                                margin-left: auto;
+                                                margin-right: auto;
+                                                text-align: left;
+                                            }
+                                            
+                                            .help-block {
+                                                color: #ec1616;
+                                            }
+                                            
+                                            .form-control {
+                                                border-radius: 3px;
+                                            }
+                                            
+                                            .form-group {
+                                                margin-bottom: 20px;
+                                            }
+                                            
+                                            .wirpper1.form-group {
+                                                margin-bottom: 5px;
+                                                margin-top: 5px;
+                                            }
+                                        </style>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="proS" class="col-5"></div>
+                                        <div id="allItems"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-xl-4">
+
+                            </div>
+                            <div class="col-12 col-xl-8">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            </section>
+        </div>
+
+
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <p>2021 &copy; UniBen ICT</p>
+                </div>
+                <div class="float-end">
+                    <!--<p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>-->
+                </div>
+            </div>
+        </footer>
+    </div>
+    </div>
+    <!-- <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script> -->
+    <script src="tablemanager/tableManager.js"></script>
+    <script src="js/section.js"></script>
+    <script src="js/menus.js"></script>
+    <script src="js/menutype.js"></script>
+    <script src="js/adduser3.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/user.js"></script>
+    <script src="js/logout.js"></script>
+    <script src="js/changepass.js"></script>
+    <script src="js/pagetemplate.js"></script>
+    <script src="js/calendars.js"></script>
+    <script src="js/pages.js"></script>
+    <script src="js/news.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/videos.js"></script>
+    <script src="js/sliders1.js"></script>
+    <script src="js/slidertemplate.js"></script>
+    <script src="js/sectiontemplate.js"></script>
+
+    <!-- <script src="js/searchmembers.js"></script>
+    
+   
+    
+    
+    <script src="js/updatevalidation.js"></script>
+    <script src="js/users.js"></script>-->
+
+
+
+
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
+    <script src="assets/js/pages/dashboard.js"></script>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
